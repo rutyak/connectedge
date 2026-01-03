@@ -13,7 +13,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
   return (
     <section
       data-testid="herosection-container"
-      className={`relative lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center`}
+      className={`relative min-h-[35vh] lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center`}
     >
       <div className="absolute inset-0 bg-gradient-to-b p-0 from-black/80 via-black/40 to-black/90 z-0" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/30 blur-[160px] rounded-full z-0" />
@@ -44,7 +44,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
             </span>
           </h1>
 
-          <p className="text-gray-300 text-base sm:text-sm lg:text-xl max-w-xl lg:max-w-3xl">
+          <p className="text-gray-300 text-xs sm:text-sm lg:text-xl max-w-xl lg:max-w-3xl">
             A next-gen professional networking platform where skills meet
             opportunity — connect, collaborate, and grow faster.
           </p>
