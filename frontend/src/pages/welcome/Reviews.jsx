@@ -57,18 +57,16 @@ function Reviews() {
         relative
         w-full
         overflow-hidden
-        px-6 py-24
+        px-6 py-15
         backgrop-blur-md
         text-slate-300
         bg-[#EEF4FF]
       "
     >
-      {/* Ambient glow */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full" />
       </div>
 
-      {/* Section Heading */}
       <div className="mb-16 text-center">
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-700">
           Loved by professionals worldwide
@@ -79,7 +77,6 @@ function Reviews() {
         </p>
       </div>
 
-      {/* Reviews Slider */}
       <Swiper
         modules={[Autoplay]}
         spaceBetween={24}

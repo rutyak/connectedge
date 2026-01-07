@@ -4,11 +4,13 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { X, ArrowLeft, Loader2 } from "lucide-react";
 import ResetPassword from "./ResetPassword";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import VerifyOtp from "./VerifyOtp";
 import ForgotPassword from "./ForgotPassword";
+
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Auth() {
@@ -19,7 +21,6 @@ function Auth() {
   const [error, setError] = useState("");
   const modelRef = useRef(null);
 
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,35 +32,39 @@ function Auth() {
     if (token) {
       navigate("/dashboard", { replace: true });
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (!loginToggle) return;
-
     const handleClickOutside = (e) => {
       if (modelRef.current && !modelRef.current.contains(e.target)) {
         setLoginToggle(false);
       }
     };
     const handleEscapeKey = (e) => e.key === "Escape" && setLoginToggle(false);
-    const handleScroll = () => setLoginToggle(false);
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeKey);
-    document.addEventListener("scroll", handleScroll);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeKey);
-      document.removeEventListener("scroll", handleScroll);
     };
   }, [loginToggle]);
 
+  useEffect(() => {
+    if (!loginToggle) return;
+
+    const handleScroll = () => {
+      setLoginToggle(false);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loginToggle]);
+
   const handleChanges = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
 
@@ -74,36 +79,22 @@ function Auth() {
         const res = await axios.post(`${base_url}/${endpoint}`, formData, {
           withCredentials: true,
         });
-
-        if (!toast.isActive("authToast")) {
-          toast.success(res.data?.message, { toastId: "authToast" });
-        }
-
+        toast.success(res.data?.message);
         dispatch(addUser(res.data?.user));
-
         setLoginToggle(false);
-        if (res.status === 200) {
-          navigate("/dashboard");
-        }
-        setFormData({});
+        if (res.status === 200) navigate("/dashboard");
       } else if (authView === "forgotPassword") {
         const res = await axios.post(`${base_url}/send-otp`, {
           email: formData.email,
         });
-        if (!toast.isActive("forgetPassToast")) {
-          toast.success(res.data?.message, { toastId: "forgetPassToast" });
-        }
-
+        toast.success(res.data?.message);
         if (res.status === 200) setAuthView("verifyOtp");
       } else if (authView === "verifyOtp") {
         const res = await axios.post(`${base_url}/verify-otp`, {
           email: formData.email,
           otp: formData.otp,
         });
-        if (!toast.isActive("verifyOtpToast")) {
-          toast.success(res.data?.message, { toastId: "verifyOtpToast" });
-        }
-
+        toast.success(res.data?.message);
         if (res.status === 200) setAuthView("resetPassword");
       } else if (authView === "resetPassword") {
         if (formData.password !== formData.confirmPassword) {
@@ -114,64 +105,71 @@ function Auth() {
           email: formData.email,
           password: formData.password,
         });
-        if (!toast.isActive("resetPassword")) {
-          toast.success(res.data?.message, { toastId: "resetPassword" });
-        }
-
+        toast.success(res.data?.message);
         if (res.status === 200) setAuthView("login");
       }
     } catch (error) {
       const errorMsg = error.response?.data?.message || "Something went wrong";
-      if (!toast.isActive("resetPasswordErrorToast")) {
-        toast.error(errorMsg, { toastId: "resetPasswordErrorToast" });
-      }
-
+      toast.error(errorMsg);
       setError(errorMsg);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Google Auth Redirect
-  const handleGoogleLogin = () => {
-    window.location.href = `${base_url}/google`;
-  };
-
   return (
     <>
       <button
-        className="rounded-full py-1 px-3 md:py-2 md:px-6 text-md md:text-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/30"
-        onClick={() => setLoginToggle(!loginToggle)}
+        className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/25 active:scale-95"
+        onClick={() => setLoginToggle(true)}
       >
         Login
       </button>
 
       {loginToggle && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center min-h-screen p-4 bg-gray-900/70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-300">
           <div
             ref={modelRef}
-            className="bg-white rounded-xl shadow-xl p-8 max-w-sm w-full"
+            className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-w-md w-full relative overflow-hidden"
           >
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl md:text-3xl font-semibold text-center flex-1 ">
-                {authView === "login" && "Welcome Back 👋"}
-                {authView === "signup" && "Connect with us 🤝"}
-                {authView === "forgotPassword" && "Forgot Password 🔑"}
-                {authView === "resetPassword" && "Set New Password 🔒"}
-                {authView === "verifyOtp" && "Verify OTP 📩"}
+            <button
+              onClick={() => setLoginToggle(false)}
+              className="absolute right-6 top-6 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X size={20} />
+            </button>
+
+            {authView !== "login" && authView !== "signup" && (
+              <button
+                onClick={() => setAuthView("login")}
+                className="absolute left-6 top-6 p-2 text-gray-400 hover:text-blue-600 flex items-center gap-1 text-sm font-medium"
+              >
+                <ArrowLeft size={18} />
+              </button>
+            )}
+
+            <div className="mt-4 mb-8 text-center">
+              <h2 className="text-3xl font-bold text-gray-900 tracking-tight">
+                {authView === "login" && "Welcome Back"}
+                {authView === "signup" && "Create Account"}
+                {authView === "forgotPassword" && "Reset Password"}
+                {authView === "verifyOtp" && "Verify Email"}
+                {authView === "resetPassword" && "New Password"}
               </h2>
+              <p className="text-gray-500 mt-2">
+                {authView === "login" &&
+                  "Enter your details to access your account"}
+                {authView === "signup" && "Join our community today"}
+              </p>
             </div>
 
-            {/* Error */}
             {error && (
-              <div className="mb-4 p-2 bg-red-100 text-red-600 text-sm rounded-md text-center">
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm rounded-r-xl animate-shake">
                 {error}
               </div>
             )}
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {authView === "login" && (
                 <Login
                   setAuthView={setAuthView}
@@ -179,91 +177,72 @@ function Auth() {
                   handleChanges={handleChanges}
                 />
               )}
-
               {authView === "signup" && (
                 <SignUp handleChanges={handleChanges} />
               )}
-
               {authView === "forgotPassword" && (
                 <ForgotPassword handleChanges={handleChanges} />
               )}
-
               {authView === "verifyOtp" && (
                 <VerifyOtp handleChanges={handleChanges} />
               )}
-
               {authView === "resetPassword" && (
                 <ResetPassword handleChanges={handleChanges} />
               )}
 
               <button
-                data-testid="submitBtn"
                 type="submit"
-                className="w-full py-2 text-white rounded-lg font-medium bg-blue-600 hover:bg-blue-700 transition-all duration-200 disabled:bg-blue-400"
                 disabled={isLoading}
+                className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/20 transition-all active:scale-[0.98] disabled:opacity-70 flex justify-center items-center gap-2"
               >
+                {isLoading && <Loader2 className="animate-spin" size={20} />}
                 {isLoading
-                  ? "Loading..."
+                  ? "Processing..."
                   : authView === "login"
-                  ? "Login"
+                  ? "Sign In"
                   : authView === "signup"
-                  ? "Signup"
-                  : authView === "forgotPassword"
-                  ? "Verify Email"
-                  : authView === "verifyOtp"
-                  ? "Verify OTP"
-                  : "Update Password"}
+                  ? "Create Account"
+                  : "Continue"}
               </button>
-              {authView !== "login" && authView !== "signup" && (
-                <button
-                  onClick={() => setAuthView("login")}
-                  className="text-blue-500 text-sm font-medium text-end mr-3"
-                >
-                  ← Back
-                </button>
-              )}
             </form>
 
-            {/* Google Auth */}
             {(authView === "login" || authView === "signup") && (
-              <button
-                onClick={handleGoogleLogin}
-                className="w-full mt-4 flex items-center justify-center gap-2 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all"
-              >
-                <img
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt="Google"
-                  className="w-5 h-5"
-                />
-                Continue with Google
-              </button>
-            )}
+              <>
+                <div className="relative my-8">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-gray-100"></span>
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-4 text-gray-400 font-medium">
+                      Or join with
+                    </span>
+                  </div>
+                </div>
 
-            {/* Switch Login/Signup */}
-            {(authView === "login" || authView === "signup") && (
-              <div className="text-sm text-center mt-3 cursor-default">
-                {authView === "login" ? (
-                  <>
-                    Don’t have an account?{" "}
-                    <span
-                      className="text-blue-600 cursor-pointer hover:underline"
-                      onClick={() => setAuthView("signup")}
-                    >
-                      Signup
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    Already have an account?{" "}
-                    <span
-                      className="text-blue-500 cursor-pointer hover:underline"
-                      onClick={() => setAuthView("login")}
-                    >
-                      Login
-                    </span>
-                  </>
-                )}
-              </div>
+                <button
+                  onClick={() => (window.location.href = `${base_url}/google`)}
+                  className="w-full flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all font-semibold text-gray-700 mb-6"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/475656/google-color.svg"
+                    alt="G"
+                    className="w-5 h-5"
+                  />
+                  Google Account
+                </button>
+
+                <p className="text-center text-sm text-gray-600 font-medium">
+                  {authView === "login" ? "New here? " : "Member already? "}
+                  <button
+                    onClick={() =>
+                      setAuthView(authView === "login" ? "signup" : "login")
+                    }
+                    className="text-blue-600 hover:text-blue-700 font-bold underline-offset-4 hover:underline"
+                  >
+                    {authView === "login" ? "Create an account" : "Log in"}
+                  </button>
+                </p>
+              </>
             )}
           </div>
         </div>
