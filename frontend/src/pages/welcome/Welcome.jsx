@@ -32,9 +32,10 @@ function Welcome() {
   return (
     <div
       data-testid="welcome-container"
-      className="relative"
+      className="relative "
       style={backgroundStyles}
     >
+      <div className="absolute inset-0 bg-gradient-to-b p-0 from-black/80 via-black/40 to-black/90 z-0" />
       <WelcomHeader
         isScrollingUp={isScrollingUp}
         setIsScrollingUp={setIsScrollingUp}
@@ -45,8 +46,12 @@ function Welcome() {
         setIsScrollingUp={setIsScrollingUp}
       />
 
-      <div className="min-h-[65vh] md:h-auto bg-gradient-to-br from-gray-50 to-indigo-50">
-        <Reviews />
+      <Reviews />
+
+      <div
+        className="min-h-[65vh] md:h-auto backdrop-blur-md
+        text-slate-300"
+      >
         <Footer />
       </div>
     </div>

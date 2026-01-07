@@ -15,7 +15,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
       data-testid="herosection-container"
       className={`relative min-h-[35vh] lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center`}
     >
-      <div className="absolute inset-0 bg-gradient-to-b p-0 from-black/80 via-black/40 to-black/90 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b p-0 from-black/70 via-black/30 to-black/80 z-0" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/30 blur-[160px] rounded-full z-0" />
       <div
         className={`relative z-10 max-w-6xl mx-auto px-4 lg:px-16 pt-23 md:pt-40 pb-23 md:pb-40 text-center lg:text-left transform transition-all duration-500 ease-out will-change-transform flex flex-col gap-8 items-center lg:items-start ${
