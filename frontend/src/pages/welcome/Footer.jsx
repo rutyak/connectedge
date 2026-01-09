@@ -11,7 +11,7 @@ function Footer() {
       "
     >
       {/* Top accent line */}
-      <div className="max-w-7xl mx-auto py-16 md:py-24 px-6 flex flex-col items-center">
+      <div className="max-w-7xl mx-auto py-10 sm:py-16 md:py-24 px-6 flex flex-col items-center">
         {/* Social Icons */}
         <div className="flex gap-6 mb-12">
           {[FaFacebook, FaSquareXTwitter, AiFillInstagram, IoLogoYoutube].map(
@@ -36,7 +36,7 @@ function Footer() {
         </div>
 
         {/* Main Links */}
-        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 text-sm">
+        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-8 sm:mb-10 text-sm">
           {[
             "Home",
             "About",
@@ -56,7 +56,7 @@ function Footer() {
         </nav>
 
         {/* Policies */}
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12 text-sm">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-8 sm:mb-12 text-sm">
           {["Subscription Terms", "Refund Policy", "Cancellation Policy"].map(
             (item, i) => (
               <a
@@ -74,7 +74,7 @@ function Footer() {
         <div className="w-full max-w-3xl h-px bg-white/20 mb-12" />
 
         {/* Razorpay */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8 sm:mb-10">
           <p className="text-slate-300 text-sm">
             Secure payments powered by{" "}
             <span className="text-cyan-400 font-medium">Razorpay</span>

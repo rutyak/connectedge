@@ -5,7 +5,7 @@ function Card({ name, position, rating, text }) {
     .join("");
 
   return (
-    <div className="relative h-[260px]  sm:h-[320px] lg:h-[280px] p-5 sm:p-6 rounded-b-2xl rounded-t-md bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div className="relative h-[240px] sm:h-[280px] p-5 sm:p-6 rounded-b-2xl rounded-t-md bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
       <div className="absolute top-0 left-0 w-full h-1 rounded-t-2xl bg-gradient-to-r from-indigo-500 to-[#00caf6]" />
 
       <div className="flex items-center gap-4">

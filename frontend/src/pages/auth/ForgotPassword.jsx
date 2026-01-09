@@ -1,16 +1,17 @@
+import { Mail } from "lucide-react";
 import Input from "../../components/ui/Input";
 
 const ForgotPassword = ({ handleChanges }) => {
   return (
-    <>
+    <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <Input
         type="email"
         name="email"
         placeholder="Enter your email"
-        className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
         handleChanges={handleChanges}
+        icon={<Mail size={20} />}
       />
-    </>
+    </div>
   );
 };
 

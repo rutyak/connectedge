@@ -57,7 +57,7 @@ function Reviews() {
         relative
         w-full
         overflow-hidden
-        px-6 py-15
+        px-4 py-8 sm:px-6 sm:py-15
         backgrop-blur-md
         text-slate-300
         bg-[#EEF4FF]
@@ -67,11 +67,11 @@ function Reviews() {
         <div className="absolute top-1/4 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full" />
       </div>
 
-      <div className="mb-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-700">
+      <div className="mb-8 sm:mb-16 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700">
           Loved by professionals worldwide
         </h2>
-        <p className="mt-4 max-w-xl mx-auto text-slate-400">
+        <p className="text-xs px-6 sm:px-0 sm:text-sm mt-4 max-w-xl mx-auto text-slate-400">
           Real stories from developers who landed better opportunities using
           ConnectEdge
         </p>

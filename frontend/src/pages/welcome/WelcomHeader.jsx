@@ -20,7 +20,7 @@ function WelcomHeader({ isScrollingUp }) {
           }`}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group select-none">
+          <Link to="/" className="flex items-center group select-none">
             <img
               src={connectEdgeIcon}
               alt="ConnectEdge Logo"

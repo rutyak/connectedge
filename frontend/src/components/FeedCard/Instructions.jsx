@@ -11,7 +11,7 @@ const Instruction = () => {
   return (
     <div
       data-testid="instructions"
-      className="w-full flex flex-wrap justify-between mb-3 px-10 hidden sm:flex"
+      className="w-full flex flex-wrap gap-16 justify-center mb-3 hidden sm:flex"
     >
       <div className="flex items-center space-x-1 text-gray-300">
         <FaArrowLeft className="text-lg" />
@@ -25,20 +25,6 @@ const Instruction = () => {
 
       <div className="flex items-center space-x-1 text-gray-300">
         <FaArrowUp className="text-lg" />
-        <span>SUPERLIKE</span>
-      </div>
-      <div className="flex items-center space-x-1 text-gray-300">
-        <FaTimes className="text-lg" />
-        <span>NOPE</span>
-      </div>
-
-      <div className="flex items-center space-x-1 text-gray-300">
-        <FaHeart className="text-lg" />
-        <span>LIKE</span>
-      </div>
-
-      <div className="flex items-center space-x-1 text-gray-300">
-        <FaStar className="text-lg" />
         <span>SUPERLIKE</span>
       </div>
     </div>

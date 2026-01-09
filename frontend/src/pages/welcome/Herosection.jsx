@@ -13,7 +13,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
   return (
     <section
       data-testid="herosection-container"
-      className="relative min-h-[35vh] lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center"
+      className="relative min-h-[35vh] sm:min-h-[60vh] lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center"
     >
       {/* Background overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80 z-0" />
@@ -21,7 +21,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
 
       {/* Content */}
       <div
-        className={`relative z-10 max-w-6xl mx-auto px-4 lg:px-16 pt-23 md:pt-40 pb-23 md:pb-40 text-center lg:text-left transform transition-all duration-500 ease-out will-change-transform flex flex-col gap-8 items-center lg:items-start ${
+        className={`relative z-10 max-w-6xl mx-auto px-4 lg:px-16 pt-23 md:pt-40 pb-23 md:pb-40 text-center lg:text-left transform transition-all duration-500 ease-out will-change-transform flex flex-col gap-6 sm:gap-8 items-center lg:items-start ${
           isScrollingUp ? "opacity-30 scale-[0.98]" : "opacity-100 scale-100"
         }`}
       >
@@ -29,8 +29,8 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
           🚀 Trusted by professionals worldwide
         </div>
 
-        <div className="flex flex-col gap-5">
-          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-[80px] xl:text-[88px] font-extrabold tracking-tight leading-tight">
+        <div className="flex flex-col gap-4 sm:gap-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[80px] xl:text-[88px] font-extrabold tracking-tight leading-tight">
             <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 text-transparent bg-clip-text">
               Match.
             </span>{" "}
@@ -40,25 +40,25 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
             </span>
           </h1>
 
-          <p className="text-gray-300 text-xs sm:text-sm lg:text-xl max-w-xl lg:max-w-3xl">
+          <p className="text-gray-300 text-xs sm:text-sm lg:text-xl max-w-lg sm:max-w-xl lg:max-w-3xl">
             A next-gen professional networking platform where skills meet
             opportunity — connect, collaborate, and grow faster.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-5 text-center lg:text-left">
-          <button className="px-6 lg:px-9 py-2 lg:py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:scale-105 transition-transform duration-200 shadow-2xl">
+          <button className="px-5 sm:px-6 lg:px-9 py-2 lg:py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:scale-105 transition-transform duration-200 shadow-2xl">
             Get Started
           </button>
 
-          <button className="px-6 lg:px-9 py-2 lg:py-3 rounded-xl font-semibold text-white/80 border border-white/30 backdrop-blur-md hover:bg-white/10 transition-all duration-200">
+          <button className="px-5 sm:px-6 lg:px-9 py-2 lg:py-3 rounded-xl font-semibold text-white/80 border border-white/30 backdrop-blur-md hover:bg-white/10 transition-all duration-200">
             Explore Network →
           </button>
         </div>
       </div>
 
       {/* Bottom Right Scroll Arrow */}
-      <div className="absolute bottom-24 right-10 z-20 animate-bounce hidden xl:block">
+      <div className="absolute bottom-24 right-10 z-20 animate-bounce hidden lg:block">
         <button
           onClick={() =>
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
