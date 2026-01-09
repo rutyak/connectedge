@@ -5,7 +5,7 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatList({ search }) {
   const connections = useSelector((state) => state.connections);
-  
+
   const filteredConnections = connections?.filter((person) =>
     person?.firstname?.toLowerCase().includes(search?.toLowerCase())
   );
@@ -45,12 +45,15 @@ function ChatList({ search }) {
     }
   }
 
+  const listToRender =
+    window.innerWidth < 1024 ? connections : filteredConnections;
+
   return (
     <div className="h-full flex-1 overflow-y-auto">
       <h3 className="px-4 pt-2 pb-2 text-gray-500 font-medium">Chats</h3>
       <div className="space-y-2 px-2">
-        {filteredConnections && filteredConnections?.length > 0 ? (
-          filteredConnections?.map(
+        {listToRender && listToRender.length > 0 ? (
+          listToRender?.map(
             (person) =>
               person !== null && (
                 <div
