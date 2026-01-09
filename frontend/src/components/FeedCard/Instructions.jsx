@@ -11,7 +11,7 @@ const Instruction = () => {
   return (
     <div
       data-testid="instructions"
-      className="flex flex-wrap justify-between gap-12 mb-3 hidden sm:flex"
+      className="w-full flex flex-wrap justify-between mb-3 px-10 hidden sm:flex"
     >
       <div className="flex items-center space-x-1 text-gray-300">
         <FaArrowLeft className="text-lg" />

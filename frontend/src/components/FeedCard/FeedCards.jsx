@@ -1,8 +1,8 @@
 import { useState, useRef, createRef, useEffect } from "react";
 import TinderCard from "react-tinder-card";
-import { RiCloseLargeFill } from "react-icons/ri";
-import { BiSolidLike } from "react-icons/bi";
-import { GoStarFill } from "react-icons/go";
+// import { RiCloseLargeFill } from "react-icons/ri";
+// import { BiSolidLike } from "react-icons/bi";
+// import { GoStarFill } from "react-icons/go";
 import Instruction from "./Instructions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -98,84 +98,54 @@ function FeedCards({
   }
 
   // ✅ Swipe manually via button
-  async function swipe(dir, id) {
-    if (isPreview || currIndex < 0) return;
-    const cardRef = cardRefs.current[currIndex]?.current;
-    if (cardRef) {
-      await cardRef.swipe(dir);
-    } else {
-      console.warn("No card ref found for index:", currIndex);
-    }
-  }
+  // async function swipe(dir, id) {
+  //   if (isPreview || currIndex < 0) return;
+  //   const cardRef = cardRefs.current[currIndex]?.current;
+  //   if (cardRef) {
+  //     await cardRef.swipe(dir);
+  //   } else {
+  //     console.warn("No card ref found for index:", currIndex);
+  //   }
+  // }
 
   return (
     <div
       data-testid="feedcard"
       className="h-full w-full flex flex-col items-center justify-between sm:gap-6"
     >
-      {/* Label / Icon */}
-      {showLabels && !isPreview && (
-        <img
-          src={connectEdgeInnerIcon}
-          alt="connectEdgeIcon"
-          className="h-8 w-8 text-gray-300 my-3 hidden sm:block"
-        />
-      )}
-
       {/* Tinder Cards */}
-      <div className="relative w-[95%] sm:w-[310px] h-full sm:h-[420px] flex justify-center">
-        {people?.map((person, index) =>
-          isPreview ? (
-            <div key={person?._id} className="absolute w-full h-full">
-              <Card person={person} />
-            </div>
-          ) : (
-            <TinderCard
-              ref={cardRefs.current[index]}
-              key={person?._id}
-              preventSwipe={["down"]}
-              onSwipe={(dir) => handleCardLeft(dir, person?._id)}
-              onCardLeftScreen={() => setCurrIndex(index - 1)}
-              swipeRequirementType="position"
-              className="absolute w-full h-full"
-            >
-              <Card person={person} />
-            </TinderCard>
-          )
-        )}
-      </div>
-
-      {/* Action Buttons */}
-      {showActions && (
-        <div className="flex gap-8 mt-6 mb-4">
-          <button
-            aria-label="left swipe"
-            disabled={isPreview}
-            onClick={() => swipe("left", people[currIndex]?._id)}
-            className="p-4 rounded-full bg-red-100 text-red-500 shadow-lg hover:scale-110 transition"
-          >
-            <RiCloseLargeFill size={28} />
-          </button>
-
-          <button
-            aria-label="up-swipe"
-            disabled={isPreview}
-            onClick={() => swipe("up", people[currIndex]?._id)}
-            className="p-4 rounded-full bg-blue-100 text-blue-500 shadow-lg hover:scale-110 transition"
-          >
-            <GoStarFill size={28} />
-          </button>
-
-          <button
-            aria-label="right-swipe"
-            disabled={isPreview}
-            onClick={() => swipe("right", people[currIndex]?._id)}
-            className="p-4 rounded-full bg-green-100 text-green-500 shadow-lg hover:scale-110 transition"
-          >
-            <BiSolidLike size={28} />
-          </button>
+      <div className="w-full h-full flex flex-col items-center">
+        <div className="hidden sm:block">
+          {showLabels && !isPreview && (
+            <img
+              src={connectEdgeInnerIcon}
+              alt="connectEdgeIcon"
+              className="h-8 w-8 text-gray-300 my-5"
+            />
+          )}
         </div>
-      )}
+        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-[98%] sm:h-[460px] lg:h-[480px] flex justify-center">
+          {people?.map((person, index) =>
+            isPreview ? (
+              <div key={person?._id} className="absolute w-full h-full">
+                <Card person={person} />
+              </div>
+            ) : (
+              <TinderCard
+                ref={cardRefs.current[index]}
+                key={person?._id}
+                preventSwipe={["down"]}
+                onSwipe={(dir) => handleCardLeft(dir, person?._id)}
+                onCardLeftScreen={() => setCurrIndex(index - 1)}
+                swipeRequirementType="position"
+                className="absolute w-full h-full"
+              >
+                <Card person={person} />
+              </TinderCard>
+            )
+          )}
+        </div>
+      </div>
 
       {!isPreview && showLabels && <Instruction />}
     </div>
