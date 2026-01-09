@@ -120,7 +120,7 @@ function FeedCards({
             <img
               src={connectEdgeInnerIcon}
               alt="connectEdgeIcon"
-              className="h-8 w-8 text-gray-300 my-5"
+              className="h-8 w-8 text-gray-300 my-5 lg:my-7"
             />
           )}
         </div>
