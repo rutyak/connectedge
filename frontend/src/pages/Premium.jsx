@@ -55,7 +55,7 @@ const Premium = () => {
 
   async function handleSubscribeClick(type) {
     try {
-      let plan = type.toLowerCase();
+      let plan = type?.toLowerCase();
 
       const res = await axios.post(
         `${base_url}/order/create`,

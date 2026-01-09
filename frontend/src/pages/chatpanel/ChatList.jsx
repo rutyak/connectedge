@@ -5,9 +5,9 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatList({ search }) {
   const connections = useSelector((state) => state.connections);
-
+  
   const filteredConnections = connections?.filter((person) =>
-    person?.firstname.toLowerCase().includes(search.toLowerCase())
+    person?.firstname?.toLowerCase().includes(search?.toLowerCase())
   );
 
   const navigate = useNavigate();
