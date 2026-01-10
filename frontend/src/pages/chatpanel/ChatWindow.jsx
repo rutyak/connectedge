@@ -105,7 +105,7 @@ function ChatWindow() {
   return (
     <div className="h-[100dvh] flex flex-col">
       {/* header */}
-      <div className="flex items-center justify-between px-[20px] bg-white shadow-xl h-16">
+      <div className="flex items-center justify-between px-5 bg-white shadow-xl h-16">
         <div className="flex items-center gap-4">
             <HiArrowSmallLeft
               data-testid="back"

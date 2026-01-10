@@ -8,22 +8,26 @@ const requestSend = async (req, res) => {
     const toUserId = req.params.id;
     const status = req.params.status;
 
+    //case 1
     const isValidUserId = await User.findById(toUserId);
     if (!isValidUserId) {
       return res.status(400).json({ message: "User id is invalid" });
     }
 
+    //case 2
     if (fromUserId.equals(toUserId)) {
       return res
         .status(400)
         .json({ message: "Cannot send a request to yourself" });
     }
 
+    //case 3
     const allowedStatus = ["interested", "ignored", "superinterested"];
     if (!allowedStatus.includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
 
+    //checking connection request already exist or not in either direction
     const isExistingReq = await ConnectionRequest.findOne({
       $or: [
         { fromUserId, toUserId },
@@ -64,13 +68,14 @@ const requestReview = async (req, res) => {
     if (!allowedStatus.includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
-
+    
+    
     let connection = await ConnectionRequest.findOne({
       _id: requestId,
       toUserId: loggedInUser_id,
       status: { $in: ["interested", "superinterested"] },
     });
-    
+
     if (!connection) {
       return res
         .status(404)

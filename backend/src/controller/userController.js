@@ -31,9 +31,10 @@ const connections = async (req, res) => {
         { toUserId: loggedInUser_id, status: "accepted" },
       ],
     })
-      .populate("fromUserId", USER_SAFE_DATA)
+      .populate("fromUserId", USER_SAFE_DATA) // fromUserId is a field
       .populate("toUserId", USER_SAFE_DATA);
 
+    //This check ensures that for every connection, you always get the other user, not yourself.
     let data = connections.map((data) => {
       if (data.fromUserId?._id.equals(loggedInUser_id)) {
         return data?.toUserId;

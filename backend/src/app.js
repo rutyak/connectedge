@@ -3,7 +3,6 @@ const userRouter = require("./router/userRouter");
 const cors = require("cors");
 const initializeSocket = require("./utils/socket");
 const http = require("http");
-const bodyParser = require("body-parser");
 const passport = require("passport");
 require("./config/passport");
 
