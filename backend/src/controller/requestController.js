@@ -1,8 +1,6 @@
-const express = require("express");
 const ConnectionRequest = require("../model/connectionRequest");
 const User = require("../model/user");
 const { default: mongoose } = require("mongoose");
-const requestRouter = express.Router();
 
 const requestSend = async (req, res) => {
   try {

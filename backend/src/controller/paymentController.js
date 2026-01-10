@@ -1,5 +1,3 @@
-const express = require("express");
-const userAuth = require("../middleware/userAuth");
 const instance = require("../utils/razorpay");
 const Payment = require("../model/payment");
 const membershipAmount = require("../utils/constants");

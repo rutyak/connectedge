@@ -1,9 +1,6 @@
 const User = require("../model/user");
 const validateSignup = require("../utils/validateSignup");
 const validatePassword = require("../utils/validatePassword");
-const nodemailer = require("nodemailer");
-const crypto = require("crypto");
-const axios = require("axios");
 require("dotenv").config();
 
 // const transporter = nodemailer.createTransport({

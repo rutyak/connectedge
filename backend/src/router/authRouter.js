@@ -13,8 +13,6 @@ const passport = require("passport");
 const authRouter = express.Router();
 require("dotenv").config();
 
-const isProduction = process.env.NODE_ENV === "production";
-
 authRouter.post("/signup", signUp);
 
 authRouter.post("/login", login);

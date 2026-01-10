@@ -15,11 +15,9 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
       data-testid="herosection-container"
       className="relative min-h-[35vh] sm:min-h-[60vh] lg:min-h-screen overflow-hidden transition-all duration-700 flex flex-col items-center"
     >
-      {/* Background overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80 z-0" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/30 blur-[160px] rounded-full z-0" />
 
-      {/* Content */}
       <div
         className={`relative z-10 max-w-6xl mx-auto px-4 lg:px-16 pt-23 md:pt-40 pb-23 md:pb-40 text-center lg:text-left transform transition-all duration-500 ease-out will-change-transform flex flex-col gap-6 sm:gap-8 items-center lg:items-start ${
           isScrollingUp ? "opacity-30 scale-[0.98]" : "opacity-100 scale-100"
@@ -57,7 +55,6 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
         </div>
       </div>
 
-      {/* Bottom Right Scroll Arrow */}
       <div className="absolute bottom-24 right-10 z-20 animate-bounce hidden lg:block">
         <button
           onClick={() =>
