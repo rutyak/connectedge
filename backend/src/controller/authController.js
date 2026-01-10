@@ -1,20 +1,8 @@
 const User = require("../model/user");
 const validateSignup = require("../utils/validateSignup");
 const validatePassword = require("../utils/validatePassword");
+const axios = require("axios");
 require("dotenv").config();
-
-// const transporter = nodemailer.createTransport({
-//   host: "smtp-relay.brevo.com",
-//   port: 587,
-//   secure: false,
-//   auth: {
-//     user: process.env.SMTP_USER,
-//     pass: process.env.SMTP_PASS,
-//   },
-//   tls: {
-//     rejectUnauthorized: false,
-//   },
-// });
 
 async function signUp(req, res) {
   try {
