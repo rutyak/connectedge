@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import Login from "../auth/Auth";
 import connectEdgeIcon from "../../assets/icons/connectEdgeIcon.svg";
 
-function WelcomHeader({ isScrollingUp }) {
+function WelcomHeader({ isScrollingUp, setLoginToggle }) {
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div
@@ -64,7 +64,12 @@ function WelcomHeader({ isScrollingUp }) {
 
             {/* Login CTA */}
             <div className="relative group">
-              <Login />
+              <button
+                className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/25 active:scale-95"
+                onClick={() => setLoginToggle(true)}
+              >
+                Login
+              </button>
               <div
                 className="absolute inset-0 -z-10 rounded-xl
                 bg-gradient-to-r from-blue-600 to-cyan-500

@@ -6,10 +6,13 @@ import Reviews from "./Reviews";
 import Footer from "./Footer";
 import WelcomHeader from "./WelcomHeader";
 import Herosection from "./Herosection";
+import Auth from "../auth/Auth";
 
 function Welcome() {
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const userData = useSelector((state) => state.user);
+
+  const [loginToggle, setLoginToggle] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +42,7 @@ function Welcome() {
       <WelcomHeader
         isScrollingUp={isScrollingUp}
         setIsScrollingUp={setIsScrollingUp}
+        setLoginToggle={setLoginToggle}
       />
 
       <Herosection
@@ -54,6 +58,8 @@ function Welcome() {
       >
         <Footer />
       </div>
+
+      <Auth loginToggle={loginToggle} setLoginToggle={setLoginToggle} />
     </div>
   );
 }

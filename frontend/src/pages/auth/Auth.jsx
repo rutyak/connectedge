@@ -13,9 +13,8 @@ import ForgotPassword from "./ForgotPassword";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
-function Auth() {
+function Auth({ loginToggle, setLoginToggle }) {
   const [authView, setAuthView] = useState("login");
-  const [loginToggle, setLoginToggle] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
@@ -119,13 +118,6 @@ function Auth() {
 
   return (
     <>
-      <button
-        className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/25 active:scale-95"
-        onClick={() => setLoginToggle(true)}
-      >
-        Login
-      </button>
-
       {loginToggle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-300">
           <div
