@@ -1,100 +1,85 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-const base_url = import.meta.env.VITE_APP_BACKEND_URL;
+import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function ChatList({ search }) {
   const connections = useSelector((state) => state.connections);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const activeChatId = location.state?.targetUser?.id;
 
-  const filteredConnections = connections?.filter((person) =>
-    person?.firstname?.toLowerCase().includes(search?.toLowerCase())
+  const listToRender = connections?.filter((person) =>
+    person?.firstname?.toLowerCase().includes(search?.toLowerCase()),
   );
 
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
-  // async function getConnections() {
-  //   try {
-  //     const res = await axios.get(`${base_url}/user/connections`, {
-  //       withCredentials: true,
-  //     });
-
-  //     dispatch(addConnections(res.data?.data));
-  //   } catch (error) {
-  //     if (!toast.isActive("connectionErrorToast")) {
-  //       toast.error(error.data?.message, { toastId: "connectionErrorToast" });
-  //     }
-  //     console.error(error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getConnections();
-  // }, []);
-
-  function handleClick(id, firstname, imageurl) {
-    if (window.innerWidth < 1024) {
-      navigate("/chatwindow", {
-        state: { targetUser: { id, firstname, imageurl } },
-      });
-    } else {
-      navigate("/dashboard/chatwindow", {
-        state: { targetUser: { id, firstname, imageurl } },
-      });
-    }
-  }
-
-  const listToRender =
-    window.innerWidth < 1024 ? connections : filteredConnections;
-
   return (
-    <div className="h-full flex-1 overflow-y-auto">
-      <h3 className="px-4 pt-2 pb-2 text-gray-500 font-medium">Chats</h3>
-      <div className="space-y-2 px-2">
-        {listToRender && listToRender.length > 0 ? (
-          listToRender?.map(
-            (person) =>
-              person !== null && (
-                <div
-                  data-testid="targetUser"
-                  key={person?._id}
-                  className="flex justify-between gap-3 p-3 rounded-lg hover:bg-blue-100 cursor-pointer transition-colors"
-                  onClick={() =>
-                    handleClick(
-                      person?._id,
-                      person?.firstname,
-                      person?.imageurl
-                    )
+    <div className="h-full flex flex-col bg-[#020617]">
+      <div className="px-6 py-4 flex items-center justify-between">
+        <span className="text-[12px] font-black text-slate-500 uppercase tracking-[0.2em]">
+          Recent Connections
+        </span>
+        <div className="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent ml-4"></div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-3 space-y-1 pb-20 custom-scrollbar">
+        {listToRender?.map((person) => {
+          const isActive = activeChatId === person?._id;
+          return (
+            <div
+              key={person?._id}
+              onClick={() =>
+                navigate(
+                  window.innerWidth < 1024
+                    ? "/chatwindow"
+                    : "/dashboard/chatwindow",
+                  {
+                    state: {
+                      targetUser: {
+                        id: person._id,
+                        firstname: person.firstname,
+                        imageurl: person.imageurl,
+                      },
+                    },
+                  },
+                )
+              }
+              className={`group relative flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-300 ${
+                isActive
+                  ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/5 border border-white/10"
+                  : "hover:bg-white/5 border border-transparent"
+              }`}
+            >
+              {/* Active Glow Indicator */}
+              {isActive && (
+                <div className="absolute left-0 w-1 h-8 bg-cyan-400 rounded-r-full shadow-[0_0_15px_#22d3ee]"></div>
+              )}
+
+              <div className="relative flex-shrink-0">
+                <img
+                  src={
+                    person?.imageurl ||
+                    `https://ui-avatars.com/api/?name=${person?.firstname}&background=0D8ABC&color=fff`
                   }
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="relative">
-                      <img
-                        src={person?.imageurl}
-                        alt="profile"
-                        className="z-10 w-12 h-12 rounded-full object-contain border-2 border-blue-400"
-                      />
-                      <div className="absolute bg-green-600 border-white border-2 right-1 bottom-0 w-3 h-3 rounded-full"></div>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-800">
-                        {person?.firstname}
-                      </div>
-                      <div className="text-sm text-gray-500 truncate max-w-[180px]">
-                        New Match! Say Hello 👋
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-xs pt-1 text-gray-400">2m</div>
+                  className={`w-12 h-12 rounded-xl object-cover border-2 transition-all ${isActive ? "border-cyan-400" : "border-white/10"}`}
+                />
+                <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 border-2 border-[#020617] rounded-full"></div>
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex justify-between items-center mb-0.5">
+                  <h4
+                    className={`text-sm font-bold truncate ${isActive ? "text-white" : "text-slate-200"}`}
+                  >
+                    {person?.firstname}
+                  </h4>
+                  <span className="text-[10px] text-slate-500">2m ago</span>
                 </div>
-              )
-          )
-        ) : (
-          <div className="text-gray-500 text-center py-3">
-            No connections found
-          </div>
-        )}
+                <p className="text-xs text-slate-500 truncate group-hover:text-slate-400 transition-colors">
+                  Ready to collaborate on the next project? 🚀
+                </p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
