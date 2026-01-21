@@ -21,7 +21,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
   useEffect(() => {
     if (!profile) getFeedData();
   }, []);
-  
+
   // all feeds
   useEffect(() => {
     if (!profile && Array.isArray(feeds)) setPeople(feeds);
@@ -34,7 +34,9 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
 
   async function getFeedData() {
     try {
-      const res = await axios.get(`${base_url}/feeds`, { withCredentials: true });
+      const res = await axios.get(`${base_url}/feeds`, {
+        withCredentials: true,
+      });
       setPeople(res.data?.feeds);
       dispatch(addFeeds(res.data?.feeds));
     } catch (error) {
@@ -55,9 +57,12 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
   async function handleCardLeft(dir, id) {
     try {
       let endpoint = "";
-      if (dir === "right") endpoint = `${base_url}/request/send/interested/${id}`;
-      else if (dir === "left") endpoint = `${base_url}/request/send/ignored/${id}`;
-      else if (dir === "up") endpoint = `${base_url}/request/send/superinterested/${id}`;
+      if (dir === "right")
+        endpoint = `${base_url}/request/send/interested/${id}`;
+      else if (dir === "left")
+        endpoint = `${base_url}/request/send/ignored/${id}`;
+      else if (dir === "up")
+        endpoint = `${base_url}/request/send/superinterested/${id}`;
 
       const res = await axios.post(endpoint, {}, { withCredentials: true });
       toast.success(res.data?.message || "Request sent successfully");
@@ -75,7 +80,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
   return (
     <div
       data-testid="feedcard"
-      className="h-full w-full flex flex-col items-center justify-between sm:gap-6"
+      className="h-full w-full flex flex-col items-center justify-between"
     >
       {/* Tinder Cards */}
       <div className="w-full h-full flex flex-col items-center">
@@ -89,7 +94,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
           )}
         </div>
 
-        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-[98%] sm:h-[460px] lg:h-[480px] flex justify-center">
+        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[460px] lg:h-[480px] flex justify-center">
           {people?.map((person) =>
             isPreview ? (
               <div key={person?._id} className="absolute w-full h-full">
@@ -105,7 +110,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
               >
                 <Card person={person} />
               </TinderCard>
-            )
+            ),
           )}
         </div>
       </div>
