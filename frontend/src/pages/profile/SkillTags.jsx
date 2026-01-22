@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input"; // Adjust path as needed
 
 function SkillTags({ tags, setTags }) {
   const [input, setInput] = useState("");
@@ -6,7 +7,9 @@ function SkillTags({ tags, setTags }) {
   function handleKeyDown(e) {
     if ((e.key === "Enter" || e.key === ",") && input.trim()) {
       e.preventDefault();
-      setTags([...tags, input.trim()]);
+      if (!tags.includes(input.trim())) {
+        setTags([...tags, input.trim()]);
+      }
       setInput("");
     }
   }
@@ -16,33 +19,36 @@ function SkillTags({ tags, setTags }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 mt-[16px]">
-      <label className="block text-sm text-gray-600 mb-1">Skills</label>
-
-      <div className="flex flex-wrap gap-2 border p-2 rounded">
-        {tags?.map((tag, index) => (
-          <div
-            key={index}
-            className="flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
-          >
-            <span className="text-sm">#{tag}</span>
-            <button
-              className="ml-2 text-sm font-bold text-blue-600 hover:text-red-500"
-              onClick={() => removeTag(index)}
-            >
-              x
-            </button>
-          </div>
-        ))}
-
-        <input
-          className="flex-1 outline-none p-1 text-sm"
-          type="text"
-          placeholder="e.g. React, Node.js or Angular"
+    <div className="flex flex-col gap-2 mt-4">
+      <div className="relative group">
+        <Input
+          label="Skills"
+          placeholder={tags.length === 0 ? "Add skill (Press Enter or comma)" : ""}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
+          className={""} 
         />
+        
+        <div className="flex flex-wrap gap-2 mt-3">
+          {tags?.map((tag, index) => (
+            <div
+              key={index}
+              className="flex items-center bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-lg animate-in fade-in zoom-in duration-200"
+            >
+              <span className="text-xs font-bold uppercase tracking-wider">
+                #{tag}
+              </span>
+              <button
+                type="button"
+                className="ml-2 text-xs font-black text-cyan-400/50 hover:text-red-400 transition-colors"
+                onClick={() => removeTag(index)}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

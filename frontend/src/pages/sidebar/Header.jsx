@@ -17,7 +17,7 @@ function Header({ search, setSearch }) {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   return (
-    <div className="w-full flex-none border-b border-white/5 px-4 py-2 lg:px-6 lg:py-5 flex flex-col gap-5 bg-gradient-to-b from-white/[0.02] to-transparent">
+    <div className="w-full flex-none sm:border-b sm:border-white/5 px-4 py-1 lg:px-6 lg:py-5 flex flex-col gap-5 bg-gradient-to-b from-white/[0.02] to-transparent">
       <div className="flex items-center justify-between gap-4">
         <div
           onClick={(e) => {
@@ -72,7 +72,6 @@ function Header({ search, setSearch }) {
             )}
           </Link>
 
-          {/* Mobile Chat Link */}
           <Link
             to="/dashboard/chatlist"
             className="lg:hidden p-3 bg-white/5 hover:bg-blue-500/10 rounded-xl transition-all border border-white/5 hover:border-blue-500/20"
@@ -82,15 +81,16 @@ function Header({ search, setSearch }) {
         </div>
       </div>
 
-      {/* Search Layer (Desktop) */}
       <div className="relative hidden lg:block group">
         <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
           <IoIosSearch className="text-slate-500 text-xl group-focus-within:text-blue-400 transition-colors duration-300" />
         </div>
         <input
           type="text"
+          name="search-input"
           placeholder="Search people, messages..."
           value={search}
+          autoComplete="off"
           onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-slate-900/40 text-slate-100 placeholder:text-slate-600 rounded-xl pl-12 pr-4 py-3 border border-white/5 focus:border-blue-500/40 focus:bg-slate-900/80 outline-none transition-all duration-300 text-sm shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)] focus:ring-4 focus:ring-blue-500/5"
         />

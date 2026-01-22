@@ -64,20 +64,19 @@ function Dashboard() {
   return (
     <div
       data-testid="dashboard"
-      className="h-[100dvh] flex flex-col lg:flex-row bg-[#020617]" // Match the dark midnight blue of the landing page
+      className="h-[100dvh] flex flex-col lg:flex-row bg-[#020617]"
     >
-      <div className="fixed z-50 w-full h-[74px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-white/10 shadow-2xl">
-        <div className="relative overflow-hidden bg-[#0a192f] lg:bg-[#020617]">
+      <div className="fixed z-50 w-full bg-[#0a192f] lg:bg-[#020617] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-white/10 shadow-2xl">
+        <div className="relative overflow-hidden ">
           <Header search={search} setSearch={setSearch} />
         </div>
 
-        {/* Chat Panel - Desktop Only */}
         <div className="hidden lg:flex flex-col flex-1 bg-[#020617] backdrop-blur-xl">
           <ChatList search={search} />
         </div>
       </div>
 
-      <div className="flex-1 lg:h-screen relative w-full bg-[#0a192f] overflow-auto pt-[74px] lg:pt-0 lg:ml-[340px]">
+      <div className="flex-1 lg:h-screen relative w-full bg-[#0a192f] overflow-auto pt-[68px] lg:pt-0 lg:ml-[340px]">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-30">
           <div className="absolute -top-[10%] -right-[10%] w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full"></div>
           <div className="absolute bottom-[10%] -left-[10%] w-[400px] h-[400px] bg-cyan-500/10 blur-[100px] rounded-full"></div>

@@ -5,10 +5,10 @@ const Card = ({ person }) => {
     <div
       style={{
         backgroundImage: `url(${person?.imageurl})`,
-        backgroundSize: "cover",       // Ensures image covers full card
-        backgroundPosition: "center",  // Keeps image centered
-        backgroundRepeat: "no-repeat", // Prevents tiling
-        backgroundAttachment: "scroll" // Prevents weird zoom on mobile scroll
+        backgroundSize: "cover",      
+        backgroundPosition: "center",  
+        backgroundRepeat: "no-repeat", 
+        backgroundAttachment: "scroll" 
       }}
       className="w-full h-full rounded-2xl flex items-end p-4 text-white shadow-lg bg-gray-200"
     >
