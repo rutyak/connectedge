@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineSend } from "react-icons/ai";
-import chatbg from "../../assets/chatbg.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import { HiArrowSmallLeft } from "react-icons/hi2";
+import { HiArrowSmallLeft, HiOutlinePhone, HiOutlineVideoCamera } from "react-icons/hi2";
 import { createSocketConnection } from "../../utils/socket";
 import axios from "axios";
 
@@ -11,7 +10,6 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatWindow() {
   const user = useSelector((state) => state.user);
-
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isOnline, setIsOnline] = useState(false);
@@ -19,7 +17,6 @@ function ChatWindow() {
   const navigate = useNavigate();
   const location = useLocation();
   const { targetUser } = location.state || {};
-
   const userId = user?._id;
 
   const socketRef = useRef(null);
@@ -30,61 +27,39 @@ function ChatWindow() {
       const res = await axios.get(`${base_url}/chat/${targetUser?.id}`, {
         withCredentials: true,
       });
-
       const chat = res.data?.chat?.[0];
-      const messages = chat?.messages;
-      const formattedMessages =
-        messages?.map((m) => ({
-          id: m?._id,
-          text: m?.text,
-          sender: m.senderId?._id === userId ? "me" : "other",
-        })) || [];
-
+      const formattedMessages = chat?.messages?.map((m) => ({
+        id: m?._id,
+        text: m?.text,
+        sender: m.senderId?._id === userId ? "me" : "other",
+        time: new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      })) || [];
       setMessages(formattedMessages);
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  useEffect(() => {
-    getChat();
-  }, [targetUser.id]);
+  useEffect(() => { getChat(); }, [targetUser?.id]);
 
   useEffect(() => {
     if (!user?._id || !targetUser?.id) return;
-
     const socket = createSocketConnection();
     socketRef.current = socket;
 
-    socket?.emit("joinChat", {
-      targetUserId: targetUser?.id,
-      firstname: user?.firstname,
+    socket?.emit("joinChat", { targetUserId: targetUser?.id, firstname: user?.firstname });
+
+    socket.on("messageReceive", ({ text, senderId }) => {
+      setMessages((prev) => [...prev, {
+        id: Date.now(),
+        text,
+        sender: senderId === userId ? "me" : "other",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
     });
 
-    //receive message
-    socket.on("messageReceive", ({ firstname, text, senderId }) => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          text,
-          sender: senderId === userId ? "me" : "other",
-        },
-      ]);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
+    return () => socket.disconnect();
   }, [userId, targetUser?.id]);
-
-  useEffect(() => {
-    if (!targetUser?.id) return;
-
-    socketRef.current?.emit("checkOnline", targetUser?.id, (isOnline) => {
-      setIsOnline(isOnline);
-    });
-  }, [targetUser?.id]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -92,99 +67,85 @@ function ChatWindow() {
 
   function handleSend() {
     if (message?.trim() === "" || !socketRef?.current) return;
-
     socketRef.current?.emit("sendMessage", {
       firstname: user?.firstname,
       targetUserId: targetUser?.id,
       text: message,
     });
-
     setMessage("");
   }
 
   return (
-    <div className="h-[100dvh] flex flex-col">
-      {/* header */}
-      <div className="flex items-center justify-between px-5 bg-white shadow-xl h-16">
+    <div className="h-[100dvh] flex flex-col bg-[#020617] text-white">
+      {/* Dynamic Header */}
+      <header className="flex items-center justify-between px-6 py-4 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 z-20">
         <div className="flex items-center gap-4">
-            <HiArrowSmallLeft
-              data-testid="back"
-              className="block lg:hidden text-2xl cursor-pointer text-gray-700 hover:text-blue-500"
-              onClick={() => navigate("/dashboard")}
-            />
-          <img
-            src={targetUser.imageurl}
-            alt="targetuser-image"
-            className="w-11 h-11 rounded-full object-cover border-2 border-blue-500"
+          <HiArrowSmallLeft 
+            className="lg:hidden text-2xl cursor-pointer text-slate-400 hover:text-cyan-400 transition-colors" 
+            onClick={() => navigate(-1)} 
           />
-          <div className="flex flex-col">
-            <div className="font-sm font-semibold text-gray-800">
-              {targetUser.firstname}
-            </div>
-            {isOnline && <div className="text-xs text-green-700">Online</div>}
+          <div className="relative">
+            <img
+              src={targetUser?.imageurl}
+              alt="profile"
+              className="w-11 h-11 rounded-xl object-cover border-2 border-cyan-500/30"
+            />
+            {isOnline && <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 border-2 border-[#020617] rounded-full"></span>}
+          </div>
+          <div>
+            <h2 className="font-bold text-slate-100">{targetUser?.firstname}</h2>
+            <p className="text-[10px] uppercase tracking-widest text-cyan-400 font-medium">
+              {isOnline ? "Active Now" : "Offline"}
+            </p>
           </div>
         </div>
-        {/* search */}
-        {/* <CiSearch className="text-xl text-gray-600 cursor-pointer hover:text-blue-500" /> */}
-      </div>
+        <div className="flex items-center gap-4 text-slate-400">
+          <HiOutlinePhone className="cursor-pointer hover:text-cyan-400 transition-colors" size={20} />
+          <HiOutlineVideoCamera className="cursor-pointer hover:text-cyan-400 transition-colors" size={22} />
+        </div>
+      </header>
 
-      {/* chat messages */}
-      <div
-        className="flex-1 overflow-y-auto p-3 sm:p-6 bg-gray-100"
-        style={{
-          backgroundImage: `url(${chatbg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="flex flex-col gap-3">
-          {messages?.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex ${
-                msg.sender === "me" ? "justify-end" : "justify-start"
-              }`}
-            >
-              <div
-                className={`px-4 py-2 rounded-2xl max-w-[70%] shadow-md text-sm ${
-                  msg.sender === "me"
-                    ? "bg-blue-500 text-white rounded-br-none"
-                    : "bg-white text-gray-800 rounded-bl-none"
-                }`}
-              >
+      {/* Modern Chat Canvas */}
+      <main className="flex-1 overflow-y-auto p-4 lg:p-8 space-y-6 custom-scrollbar bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent">
+        {messages?.map((msg, idx) => (
+          <div key={msg.id} className={`flex ${msg.sender === "me" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
+            <div className={`group relative max-w-[75%] lg:max-w-[60%]`}>
+              <div className={`px-4 py-3 rounded-2xl text-sm shadow-2xl ${
+                msg.sender === "me"
+                  ? "bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-tr-none"
+                  : "bg-slate-800/80 text-slate-100 border border-white/5 rounded-tl-none backdrop-blur-sm"
+              }`}>
                 {msg.text}
               </div>
+              <p className={`text-[10px] mt-1 text-slate-500 font-medium ${msg.sender === "me" ? "text-right" : "text-left"}`}>
+                {msg.time}
+              </p>
             </div>
-          ))}
-          <div ref={bottomRef} />
-        </div>
-      </div>
+          </div>
+        ))}
+        <div ref={bottomRef} />
+      </main>
 
-      <div className="w-full bg-white px-4 py-3 shadow-xl">
-        <div className="w-full max-w-6xl mx-auto flex items-center gap-3">
+      {/* High-Tech Input Bar */}
+      <footer className="p-4 lg:p-6 bg-[#020617] border-t border-white/5">
+        <div className="max-w-5xl mx-auto flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-2 px-4 focus-within:border-cyan-500/50 transition-all shadow-inner">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSend();
-              }
-            }}
+            placeholder="Type a professional message..."
+            className="flex-1 bg-transparent border-none py-2 text-sm text-white placeholder:text-slate-500 focus:ring-0"
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
           />
-
           <button
-            data-testid="send"
             onClick={handleSend}
-            className="p-3 rounded-full text-blue-500 hover:text-blue-600 transition"
+            disabled={!message.trim()}
+            className="p-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:grayscale"
           >
-            <AiOutlineSend size={22} />
+            <AiOutlineSend size={20} />
           </button>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
