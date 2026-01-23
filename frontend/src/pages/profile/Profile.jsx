@@ -81,17 +81,17 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen py-4 sm:py-6 px-4 sm:px-8">
+    <div className="py-3 sm:py-6 px-3 sm:px-8">
       <div className="max-w-7xl mx-auto flex flex-col xl:flex-row gap-10 items-start">
         <div className="w-full xl:w-[60%] bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl relative overflow-hidden group transition-all duration-300">
           <div className="absolute -top-12 -left-12 md:-top-24 md:-left-24 w-32 h-32 md:w-48 md:h-48 bg-blue-500/10 blur-[60px] md:blur-[100px] rounded-full group-hover:bg-blue-500/20 transition-all" />
 
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 md:mb-10 relative z-10">
+          <div className="flex flex-col items-center sm:flex-row justify-between md:items-start sm:items-center gap-4 mb-8 md:mb-10 relative z-10">
             <div>
-              <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+              <h2 className="text-center sm:text-start text-xl md:text-2xl font-bold text-white tracking-tight">
                 Profile Settings
               </h2>
-              <p className="text-slate-400 text-[10px] md:text-xs uppercase tracking-widest mt-1">
+              <p className="text-center sm:text-start text-slate-400 text-[10px] md:text-xs uppercase tracking-widest mt-1">
                 Identity & Professional Bio
               </p>
             </div>

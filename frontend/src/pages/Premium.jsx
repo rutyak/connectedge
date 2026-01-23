@@ -106,7 +106,7 @@ const Premium = () => {
 
   if (user.isPremium) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#020617] p-4 sm:p-6">
+      <div className="flex items-center justify-center p-3 sm:p-6">
         <div className="relative w-full max-w-2xl bg-slate-900/50 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-12 md:p-16 text-center shadow-2xl overflow-hidden">
           <div className="absolute -top-24 -right-24 w-48 h-48 sm:w-64 sm:h-64 bg-purple-600/20 rounded-full blur-[60px] sm:blur-[80px]" />
           <div className="relative z-10">
@@ -136,7 +136,7 @@ const Premium = () => {
   }
 
   return (
-    <div className="min-h-screen text-slate-200 selection:bg-purple-500/30">
+    <div className="text-slate-200 selection:bg-purple-500/30">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-9 py-10 lg:py-12 xl:py-16">
         {/* Header Section */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 relative">

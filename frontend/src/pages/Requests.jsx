@@ -48,8 +48,8 @@ const Requests = () => {
   };
 
   return (
-    <div className="min-h-screen w-full text-white">
-      <div className="max-w-5xl mx-auto px-4 py-4 md:py-6">
+    <div className="w-full text-white">
+      <div className="max-w-5xl mx-auto p-3 md:py-6">
         {/* Header Section */}
         <div className="flex flex-col items-center mb-6 xl:mb-12 text-center">
           <div className="hidden sm:flex w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 items-center justify-center mb-4 shadow-[0_0_20px_rgba(34,211,238,0.1)]">
