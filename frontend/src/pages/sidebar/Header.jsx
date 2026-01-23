@@ -90,7 +90,7 @@ function Header({ search, setSearch }) {
           name="search-input"
           placeholder="Search people, messages..."
           value={search}
-          autoComplete="off"
+          autoComplete="new-password"
           onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-slate-900/40 text-slate-100 placeholder:text-slate-600 rounded-xl pl-12 pr-4 py-3 border border-white/5 focus:border-blue-500/40 focus:bg-slate-900/80 outline-none transition-all duration-300 text-sm shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)] focus:ring-4 focus:ring-blue-500/5"
         />

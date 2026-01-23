@@ -17,6 +17,7 @@ const Profile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
+  const [isLoading, setIsLoading] = useState("");
   const [profileImageFile, setProfileImageFile] = useState();
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [tags, setTags] = useState(user.skills?.length ? user?.skills : []);
@@ -46,6 +47,7 @@ const Profile = () => {
   };
 
   const handleProfileEdit = async () => {
+    setIsLoading(true);
     try {
       let imageRes = null;
       if (profileImageFile) {
@@ -73,6 +75,8 @@ const Profile = () => {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,7 +109,16 @@ const Profile = () => {
                   onClick={handleProfileEdit}
                   className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 md:px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-all text-sm md:text-base"
                 >
-                  <FiSave /> Save
+                  {isLoading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Saving...
+                    </div>
+                  ) : (
+                    <>
+                      <FiSave /> Save
+                    </>
+                  )}
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
@@ -139,7 +152,6 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Form Fields: 1 column on mobile, 2 columns on Tablet (md) and Laptop (xl) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
             {[
               { id: "firstname", label: "First Name", icon: <FiUser /> },
