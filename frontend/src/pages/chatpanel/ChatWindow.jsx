@@ -134,7 +134,7 @@ function ChatWindow() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a professional message..."
-            className="flex-1 bg-transparent border-none py-2 text-sm text-white placeholder:text-slate-500 focus:ring-0"
+            className="flex-1 bg-transparent border-none py-2 text-sm text-white placeholder:text-slate-500"
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
           />
           <button
