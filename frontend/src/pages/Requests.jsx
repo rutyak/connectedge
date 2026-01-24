@@ -14,10 +14,10 @@ const Requests = () => {
   const requests = useSelector((state) => state.requests);
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ id: null, status: null });
 
   const handleReview = async (status, id) => {
-    setIsLoading(true);
+    setIsLoading({ id, status });
     try {
       const res = await axios.post(
         `${base_url}/request/review/${status}/${id}`,
@@ -43,7 +43,7 @@ const Requests = () => {
     } catch (error) {
       toast.error(error.message || "Action failed");
     } finally {
-      setIsLoading(false);
+      setIsLoading({ id: null, status: null });
     }
   };
 
@@ -119,10 +119,11 @@ const Requests = () => {
                         onClick={() => handleReview("rejected", req._id)}
                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/5 bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/10 transition-all uppercase text-xs font-bold tracking-widest"
                       >
-                        {isLoading ? (
+                        {isLoading.status === "rejected" &&
+                        isLoading.id === req._id ? (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white/300 border-t-white rounded-full animate-spin" />
-                            Dismissing...
+                            <div className="hidden md:block">Dismissing...</div>
                           </div>
                         ) : (
                           <>
@@ -135,10 +136,13 @@ const Requests = () => {
                         onClick={() => handleReview("accepted", req._id)}
                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-cyan-500 text-white shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:bg-cyan-400 hover:scale-[1.02] transition-all active:scale-95 uppercase text-xs font-bold tracking-widest"
                       >
-                        {isLoading ? (
+                        {isLoading.status === "accepted" &&
+                        isLoading.id === req._id ? (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white/300 border-t-white rounded-full animate-spin" />
-                            Establishing...
+                            <div className="hidden md:block">
+                              Establishing...
+                            </div>
                           </div>
                         ) : (
                           <>

@@ -95,7 +95,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
         </div>
 
         <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[460px] lg:h-[480px] flex justify-center">
-          {people?.map((person) =>
+          {feeds?.map((person) =>
             isPreview ? (
               <div key={person?._id} className="absolute w-full h-full">
                 <Card person={person} />

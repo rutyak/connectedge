@@ -12,7 +12,7 @@ function ChatList({ search }) {
   );
 
   return (
-    <div className="flex flex-col h-full bg-[#020617]">
+    <div className="flex flex-col h-full lg:bg-[#020617]">
       <div className="px-6 py-4 flex items-center justify-between">
         <span className="text-[12px] font-black text-slate-500 uppercase tracking-[0.2em]">
           Recent Connections
