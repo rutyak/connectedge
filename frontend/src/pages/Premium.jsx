@@ -106,29 +106,53 @@ const Premium = () => {
 
   if (user.isPremium) {
     return (
-      <div className="flex items-center justify-center p-3 sm:p-6">
-        <div className="relative w-full max-w-2xl bg-slate-900/50 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-12 md:p-16 text-center shadow-2xl overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-48 h-48 sm:w-64 sm:h-64 bg-purple-600/20 rounded-full blur-[60px] sm:blur-[80px]" />
-          <div className="relative z-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-tr from-yellow-400 to-amber-600 rounded-full mb-6 sm:mb-8 shadow-lg shadow-yellow-500/20">
-              <FiStar className="text-white text-3xl sm:text-5xl" />
+      <div className="min-h-[60vh] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="relative group w-full max-w-2xl">
+          <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-600 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+
+          <div className="relative bg-slate-950/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 sm:p-16 md:p-20 text-center shadow-2xl">
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-600/10 rounded-full blur-[80px] animate-pulse" />
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-orange-600/10 rounded-full blur-[80px] animate-pulse delay-700" />
+
+            <div className="relative z-10">
+              <div className="relative inline-flex mb-8">
+                <div className="absolute inset-0 bg-yellow-400 blur-xl opacity-30 animate-ping" />
+                <div className="relative inline-flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 bg-gradient-to-br from-yellow-300 via-amber-500 to-orange-600 rounded-3xl shadow-2xl shadow-amber-500/40 transform rotate-3 hover:rotate-6 transition-transform duration-300">
+                  <FiStar className="text-white text-4xl sm:text-6xl drop-shadow-lg" />
+                </div>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-tight">
+                Welcome, <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 drop-shadow-sm">
+                  Elite Member
+                </span>
+              </h1>
+
+              <p className="text-slate-400 text-lg sm:text-xl md:text-2xl mb-12 max-w-sm mx-auto leading-relaxed font-medium">
+                Your premium status is{" "}
+                <span className="text-emerald-400 font-bold">Active</span>.
+                Unlock the full potential of ConnectEdge today.
+              </p>
+
+              <Link
+                to="/dashboard"
+                className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-slate-950 transition-all duration-300 bg-white rounded-2xl hover:bg-amber-400 hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-amber-500/30 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-2 text-lg">
+                  Enter Dashboard{" "}
+                  <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+
+              <div className="mt-12 flex justify-center items-center gap-2 opacity-40">
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-slate-500" />
+                <span className="text-[10px] uppercase tracking-[0.3em] font-black text-slate-500">
+                  Verified Premium Account
+                </span>
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-slate-500" />
+              </div>
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 tracking-tight">
-              Welcome,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600">
-                Elite Member
-              </span>
-            </h1>
-            <p className="text-slate-400 text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed">
-              Your premium status is active. Enjoy unlimited access to the
-              entire ConnectEdge ecosystem.
-            </p>
-            <Link
-              to="/dashboard"
-              className="inline-block px-8 sm:px-10 py-3 sm:py-4 bg-white text-slate-950 font-bold rounded-xl sm:rounded-2xl hover:bg-slate-200 transition-all hover:scale-105 active:scale-95 shadow-xl"
-            >
-              Enter Dashboard
-            </Link>
           </div>
         </div>
       </div>
@@ -138,7 +162,6 @@ const Premium = () => {
   return (
     <div className="text-slate-200 selection:bg-purple-500/30">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-9 py-10 lg:py-12 xl:py-16">
-        {/* Header Section */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 sm:w-40 sm:h-40 bg-purple-600/30 blur-[80px] sm:blur-[100px] -z-10" />
           <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black text-white mb-4 sm:mb-6 tracking-tighter">
@@ -153,7 +176,6 @@ const Premium = () => {
           </p>
         </div>
 
-        {/* Pricing Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 items-stretch md:items-end">
           {plans.map((plan, index) => (
             <div
@@ -214,7 +236,6 @@ const Premium = () => {
           ))}
         </div>
 
-        {/* Support Badges */}
         <div className="mt-20 flex flex-col items-center gap-6 sm:gap-10">
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-16 opacity-40 grayscale hover:grayscale-0 transition-all px-4">
             <div className="flex items-center gap-2 font-bold text-sm sm:text-base md:text-xl">
@@ -226,22 +247,13 @@ const Premium = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10 text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold text-slate-600 px-4 text-center">
-            <Link
-              to="/subscription-terms"
-              className="hover:text-purple-400 transition-colors"
-            >
+            <Link to="/" className="hover:text-purple-400 transition-colors">
               Terms
             </Link>
-            <Link
-              to="/refund-policy"
-              className="hover:text-purple-400 transition-colors"
-            >
+            <Link to="/" className="hover:text-purple-400 transition-colors">
               Refunds
             </Link>
-            <Link
-              to="/cancellation-policy"
-              className="hover:text-purple-400 transition-colors"
-            >
+            <Link to="/" className="hover:text-purple-400 transition-colors">
               Cancellation
             </Link>
           </div>

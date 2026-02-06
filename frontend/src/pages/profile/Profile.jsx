@@ -245,7 +245,7 @@ const Profile = () => {
               </p>
             </div>
 
-            <div className="h-[400px] sm:h-[480px] w-[96%] sm:w-[360px] relative rounded-[2rem] shadow-inner">
+            <div className="h-[400px] sm:h-[480px] w-full max-w-[340px] sm:w-[360px] relative rounded-[32px] shadow-inner">
               <FeedCards
                 profile={{
                   firstname: formData?.firstname,
