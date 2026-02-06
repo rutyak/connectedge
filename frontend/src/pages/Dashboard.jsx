@@ -67,11 +67,11 @@ function Dashboard() {
       className="h-[100dvh] flex flex-col lg:flex-row bg-[#020617]"
     >
       <div className="fixed z-50 w-full bg-[#0a192f] lg:bg-[#020617] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-white/10 shadow-2xl">
-        <div className="relative overflow-hidden ">
+        <div className="relative">
           <Header search={search} setSearch={setSearch} />
         </div>
 
-        <div className="hidden lg:flex flex-col flex-1 bg-[#020617] backdrop-blur-xl">
+        <div className="overflow-auto hidden lg:flex flex-col flex-1 bg-[#020617] backdrop-blur-xl">
           <ChatList search={search} />
         </div>
       </div>
