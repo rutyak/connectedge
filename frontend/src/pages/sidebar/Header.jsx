@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import Menu from "./Menu";
 import { RiChat1Line } from "react-icons/ri";
 
-
 function Header({ search, setSearch }) {
   const user = useSelector((state) => state.user);
   const requests = useSelector((state) => state.requests);
@@ -87,10 +86,10 @@ function Header({ search, setSearch }) {
         </div>
         <input
           type="text"
-          name="search-input"
+          name={`search-${Math.random()}`}
           placeholder="Search people, messages..."
           value={search}
-          autoComplete="new-password"
+          autoComplete="one-time-code"
           onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-slate-900/40 text-slate-100 placeholder:text-slate-600 rounded-xl pl-12 pr-4 py-3 border border-white/5 focus:border-blue-500/40 focus:bg-slate-900/80 outline-none transition-all duration-300 text-sm shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)] focus:ring-4 focus:ring-blue-500/5"
         />

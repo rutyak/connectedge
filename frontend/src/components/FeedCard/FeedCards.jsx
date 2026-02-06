@@ -80,7 +80,7 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
   return (
     <div
       data-testid="feedcard"
-      className="h-full w-full flex flex-col items-center justify-between"
+      className="relative h-full w-full flex flex-col items-center justify-between"
     >
       {/* Tinder Cards */}
       <div className="w-full h-full flex flex-col items-center">
@@ -94,8 +94,8 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
           )}
         </div>
 
-        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[460px] lg:h-[480px] flex justify-center">
-          {feeds?.map((person) =>
+        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[460px] lg:h-[470px] flex justify-center">
+          {people?.map((person) =>
             isPreview ? (
               <div key={person?._id} className="absolute w-full h-full">
                 <Card person={person} />
@@ -116,7 +116,11 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
       </div>
 
       {/* Instructions */}
-      {!isPreview && showLabels && <Instruction />}
+      {!isPreview && showLabels && (
+        <div className="relative sm:fixed bottom-0 flex w-full flex-wrap gap-5 lg:gap-16 justify-center items-center py-1">
+          <Instruction />
+        </div>
+      )}
     </div>
   );
 }

@@ -20,12 +20,12 @@ function ChatList({ search }) {
         <div className="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent ml-4"></div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 space-y-1 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1 custom-scrollbar">
         {(window.innerWidth < 1024 ? connections : listToRender)?.map(
           (person) => {
             console.log("person: ", person);
 
-            if(person === null){
+            if (person === null) {
               return;
             }
             const isActive = activeChatId === person?._id;

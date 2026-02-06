@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaEdit, FaCamera } from "react-icons/fa";
 import { FiSave, FiX, FiUser, FiBriefcase, FiHash } from "react-icons/fi";
@@ -45,6 +45,11 @@ const Profile = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    setFormData({ firstname, lastname, age, gender, job, imageurl, skills });
+    setTags(skills || []);
+  }, [user]);
 
   const handleProfileEdit = async () => {
     setIsLoading(true);

@@ -64,7 +64,7 @@ function Dashboard() {
   return (
     <div
       data-testid="dashboard"
-      className="h-[100dvh] flex flex-col lg:flex-row bg-[#020617]"
+      className="h-[100dvh] sm:min-h-screen flex flex-col lg:flex-row bg-[#020617]"
     >
       <div className="fixed z-50 w-full bg-[#0a192f] lg:bg-[#020617] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-white/10 shadow-2xl">
         <div className="relative">
@@ -76,7 +76,7 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="flex-1 lg:h-screen relative w-full bg-[#0a192f] overflow-auto pt-[68px] lg:pt-0 lg:ml-[340px]">
+      <div className="flex-1 h-full lg:h-screen relative w-full bg-[#0a192f] overflow-auto pt-[68px] lg:pt-0 lg:ml-[340px]">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-30">
           <div className="absolute -top-[10%] -right-[10%] w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full"></div>
           <div className="absolute bottom-[10%] -left-[10%] w-[400px] h-[400px] bg-cyan-500/10 blur-[100px] rounded-full"></div>
