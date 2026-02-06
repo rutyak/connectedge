@@ -95,8 +95,7 @@ function ChatWindow() {
   }
 
   return (
-    <div className="h-[100dvh] flex flex-col text-white bg-[#0a192f]">
-      {/* Dynamic Header */}
+    <div className="min-h-screen flex flex-col text-white bg-[#0a192f]">
       <header className="flex items-center justify-between px-6 py-4  backdrop-blur-md border-b border-white/5 z-20">
         <div className="flex items-center gap-4">
           <HiArrowSmallLeft
@@ -134,7 +133,6 @@ function ChatWindow() {
         </div>
       </header>
 
-      {/* Modern Chat Canvas */}
       <main className="flex-1 overflow-y-auto p-4 lg:p-8 space-y-6 custom-scrollbar bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent">
         {messages?.map((msg, idx) => (
           <div
@@ -162,7 +160,6 @@ function ChatWindow() {
         <div ref={bottomRef} />
       </main>
 
-      {/* High-Tech Input Bar */}
       <footer className="p-4 lg:p-6 border-t border-white/5">
         <div className="max-w-5xl mx-auto flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-2 px-4 focus-within:border-cyan-500/50 transition-all shadow-inner">
           <input

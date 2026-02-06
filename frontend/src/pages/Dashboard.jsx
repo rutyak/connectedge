@@ -64,7 +64,7 @@ function Dashboard() {
   return (
     <div
       data-testid="dashboard"
-      className="h-[100dvh] flex flex-col lg:flex-row bg-[#020617]"
+      className="min-h-screen flex flex-col lg:flex-row bg-[#020617]"
     >
       <div className="fixed z-50 w-full bg-[#0a192f] lg:bg-[#020617] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-white/10 shadow-2xl">
         <div className="relative">
