@@ -9,6 +9,7 @@ import {
   FiHexagon,
   FiShield,
   FiStar,
+  FiArrowRight,
 } from "react-icons/fi";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
