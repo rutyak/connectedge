@@ -83,18 +83,18 @@ function FeedCards({ profile, showLabels = true, isPreview = false }) {
       className="relative h-full w-full flex flex-col items-center justify-between"
     >
       {/* Tinder Cards */}
-      <div className="w-full h-full flex flex-col items-center">
-        <div className="hidden sm:block">
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="hidden sm:block absolute top-4 left-1/2">
           {showLabels && !isPreview && (
             <img
               src={connectEdgeInnerIcon}
               alt="connectEdgeIcon"
-              className="h-8 w-8 text-gray-300 my-5 lg:my-7"
+              className="h-8 w-8 text-gray-300 mb-2 lg:mb-5"
             />
           )}
         </div>
 
-        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[460px] lg:h-[470px] flex justify-center">
+        <div className="relative w-[96%] sm:w-[340px] lg:w-[360px] h-full sm:h-[420px] xl:h-[470px] flex justify-center md:mb-20">
           {people?.map((person) =>
             isPreview ? (
               <div key={person?._id} className="absolute w-full h-full">
