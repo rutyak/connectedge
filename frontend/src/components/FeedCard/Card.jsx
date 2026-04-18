@@ -2,6 +2,7 @@ import BlueTick from "../../assets/icons/BlueTick.svg";
 
 const Card = ({ person }) => {
   return (
+    // feed card with background image and text overlay
     <div
       style={{
         backgroundImage: `url(${person?.imageurl})`,
